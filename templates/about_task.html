@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Подробнее о задании "{{ name }}" | HELPERS</title>
+</head>
+<body>
+
+    <noscript>
+        <div style="position: fixed; top: 0px; left: 0px; z-index: 3000; height: 100%; width: 100%; background-color: #FFFFFF">
+            <h1>Пожалуйста, включите JavaScript. Если Вы не знаете, как это сделать, посетите
+                <a href="https://www.enable-javascript.com/ru" target="_blank">эту страницу.</a></h1>
+        </div>
+    </noscript>
+
+    <!-- Menu -->
+    <div class="menu">
+      <a href="/" class="menu__link">
+        Домашняя страница
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+          <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+        </svg>
+      </a>&nbsp;&nbsp;&nbsp;
+      <a href="/developers" class="menu__link menu__link--active">
+        Для разработчиков
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+          <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+        </svg>
+      </a> &nbsp;&nbsp;&nbsp;
+      <a href="/funds" class="menu__link">
+        Для фондов
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+          <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+        </svg>
+      </a>&nbsp;&nbsp;&nbsp;
+      <a href="/donate" class="menu__link">
+        Пончики
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+          <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+        </svg>
+      </a>
+    </div>
+
+    <script charset="utf-8" type="text/javascript" src="https://soglkuki.prolexgroup.ru/widget/script.js"></script><script charset="utf-8" type="text/javascript">document.addEventListener('DOMContentLoaded', function(){getCookieNotification({siteName:'HELPERS',personalInformationLink:'/policy',color:'#42f578'});});</script>
+
+    <h1><br></h1>
+    <h1>{{ name }}</h1>
+    <p class="taskInfo">
+        {% for line in info %}
+            {{ line }}
+            <br>
+        {% endfor %}
+    </p>
+    <input class="perform" type="button" onclick="location.href='/announcement/{{ href }}/perform';" value="Выполнить!">
+    <br>
+    <input class="perform" type="button" onclick="location.href='/announcement/{{ href }}/delete';" value="Удалить задание">
+    <br><br><br><br><br><br>
+    <footer>
+        <p class="about"><a href="/">HELPERS</a> - это сообщество, в котором программисты
+        бесплатно помогают благотворительным фондам в разработке обеспечения</p>
+    </footer>
+</body>
+</html>
