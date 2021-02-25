@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Создать задание | HELPERS</title>
+</head>
+<body>
+
+    <noscript>
+        <div style="position: fixed; top: 0px; left: 0px; z-index: 3000; height: 100%; width: 100%; background-color: #FFFFFF">
+            <h1>Пожалуйста, включите JavaScript. Если Вы не знаете, как это сделать, посетите
+                <a href="https://www.enable-javascript.com/ru" target="_blank">эту страницу.</a></h1>
+        </div>
+    </noscript>
+
+    <!-- Menu -->
+    <div class="menu">
+      <a href="/" class="menu__link">
+        Домашняя страница
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+          <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+        </svg>
+      </a>&nbsp;&nbsp;&nbsp;
+      <a href="/developers" class="menu__link">
+        Для разработчиков
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+          <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+        </svg>
+      </a> &nbsp;&nbsp;&nbsp;
+      <a href="/funds" class="menu__link menu__link--active">
+        Для фондов
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+          <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+        </svg>
+      </a>&nbsp;&nbsp;&nbsp;
+      <a href="/donate" class="menu__link">
+        Пончики
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 152.9 43.4" style="enable-background:new 0 0 152.9 43.4;" xml:space="preserve">
+          <path d="M151.9,13.6c0,0,3.3-9.5-85-8.3c-97,1.3-58.3,29-58.3,29s9.7,8.1,69.7,8.1c68.3,0,69.3-23.1,69.3-23.1 s1.7-10.5-14.7-18.4"/>
+        </svg>
+      </a>
+    </div>
+
+    <script charset="utf-8" type="text/javascript" src="https://soglkuki.prolexgroup.ru/widget/script.js"></script><script charset="utf-8" type="text/javascript">document.addEventListener('DOMContentLoaded', function(){getCookieNotification({siteName:'HELPERS',personalInformationLink:'/policy',color:'#42f578'});});</script>
+
+    <h1><br></h1>
+    <h1>Создать задание для разработчика. Это бесплатно!</h1>
+    <br>
+    <form action="/processing..." method="post" id="newTask">
+        <label for="name" class="formLabel">Имя задания (максимально 30 символов):</label>
+        <input id="name" name="name" maxlength="30" type="text" size="40" value="{{ name }}" required>
+        <br><br>
+        <label for="info" class="formLabel">Описание задания:</label>
+        <br>
+        <textarea id="info" name="info" rows="5" cols="50" required>{{ info }}</textarea>
+        <br><br>
+        <label for="fund" class="formLabel">Благотворительный фонд:</label>
+        <select id="fund" name="fund" required>
+            <option disabled selected value> -- Выберите фонд -- </option>
+            {% for fund in approved_funds %}
+                <option>{{ fund }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <h2 id="question"></h2>
+        <input type="text" name="answer" id="answer" required>
+        <br>
+        <input type="submit">
+    </form>
+    <h2 class="error">{{ error }}</h2>
+
+    <script>
+
+        var fundSelect = newTask.fund;
+
+        function changeOption(){
+
+            var selectedOption = fundSelect.options[fundSelect.selectedIndex];
+            var index = selectedOption.index;
+
+            var questions = {{ questions|safe }};
+
+            document.getElementById("question").innerHTML = questions[index - 1];
+        }
+
+        fundSelect.addEventListener("change", changeOption);
+    </script>
+
+    <footer>
+        <p class="about"><a href="/">HELPERS</a> - это сообщество, в котором программисты
+        бесплатно помогают благотворительным фондам в разработке обеспечения</p>
+    </footer>
+</body>
+</html>
