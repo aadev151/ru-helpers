@@ -14,7 +14,7 @@ app = flask.Flask(__name__)
 # index page
 @app.route('/')
 def main():
-    deleted_tasks_file = open('/home/helpers/website/deleted_tasks.txt', 'r')
+    deleted_tasks_file = open('deleted_tasks.txt', 'r')
     deleted_tasks = int(deleted_tasks_file.read())
     deleted_tasks_file.close()
     return flask.render_template('index.html', tasks=deleted_tasks)
@@ -31,7 +31,7 @@ def policy():
 def create_task():
     approved_funds = []
     funds = []
-    funds_file = open('/home/helpers/website/funds.txt')
+    funds_file = open('funds.txt')
 
     for line in funds_file:
         funds.append(line[:-1])
@@ -39,7 +39,7 @@ def create_task():
     funds_file.close()
 
     for fund in funds:
-        fund_file = open('/home/helpers/website/funds/' + fund + '/approved.txt')
+        fund_file = open('funds/' + fund + '/approved.txt')
         if fund_file.read() == "yes":
             approved_funds.append(fund)
 
@@ -48,7 +48,7 @@ def create_task():
     questions = []
 
     for fund in approved_funds:
-        question_file = open('/home/helpers/website/funds/' + fund + '/question.txt', 'r')
+        question_file = open('funds/' + fund + '/question.txt', 'r')
         question = question_file.read()
         question_file.close()
         questions.append(question)
@@ -62,7 +62,7 @@ def create_task():
 def developers():
     announcements = []
 
-    announcements_names = open('/home/helpers/website/announcements.txt', 'r')
+    announcements_names = open('announcements.txt', 'r')
     for line in announcements_names:
         text = line.split("|")
         announcements.append([text[0], text[1]])
@@ -86,10 +86,10 @@ def donate():
 # info about an announcement
 @app.route('/announcement/<announcement>')
 def about_announcement(announcement):
-    name_file = open('/home/helpers/website/announcements/' + announcement + '/name.txt', 'r')
+    name_file = open('announcements/' + announcement + '/name.txt', 'r')
     announcement_name = name_file.read()
     name_file.close()
-    info_file = open('/home/helpers/website/announcements/' + announcement + '/info.txt', 'r')
+    info_file = open('announcements/' + announcement + '/info.txt', 'r')
     announcement_info = info_file.read().split('\n')
     info_file.close()
 
@@ -99,18 +99,18 @@ def about_announcement(announcement):
 # perform an announcement
 @app.route('/announcement/<announcement>/perform')
 def perform_announcement(announcement):
-    fund_file = open('/home/helpers/website/announcements/' + announcement + '/fund.txt', 'r')
+    fund_file = open('announcements/' + announcement + '/fund.txt', 'r')
     fund = fund_file.read()
     fund_file.close()
 
-    name_file = open('/home/helpers/website/announcements/' + announcement + '/name.txt', 'r')
+    name_file = open('announcements/' + announcement + '/name.txt', 'r')
     name = name_file.read()
     name_file.close()
-    info_file = open('/home/helpers/website/announcements/' + announcement + '/info.txt', 'r')
+    info_file = open('announcements/' + announcement + '/info.txt', 'r')
     info = info_file.read().split('\n')
     info_file.close()
 
-    email_file = open('/home/helpers/website/funds/' + fund + '/email.txt', 'r')
+    email_file = open('funds/' + fund + '/email.txt', 'r')
     email = email_file.read()
     email_file.close()
 
@@ -123,18 +123,18 @@ def perform_announcement(announcement):
 # delete an announcement (if it is not necessary anymore)
 @app.route('/announcement/<announcement>/delete')
 def delete_announcement(announcement):
-    fund_file = open('/home/helpers/website/announcements/' + announcement + '/fund.txt', 'r')
+    fund_file = open('announcements/' + announcement + '/fund.txt', 'r')
     fund = fund_file.read()
     fund_file.close()
 
-    name_file = open('/home/helpers/website/announcements/' + announcement + '/name.txt', 'r')
+    name_file = open('announcements/' + announcement + '/name.txt', 'r')
     name = name_file.read()
     name_file.close()
-    info_file = open('/home/helpers/website/announcements/' + announcement + '/info.txt', 'r')
+    info_file = open('announcements/' + announcement + '/info.txt', 'r')
     info = info_file.read().split('\n')
     info_file.close()
 
-    question_file = open('/home/helpers/website/funds/' + fund + '/question.txt', 'r')
+    question_file = open('funds/' + fund + '/question.txt', 'r')
     question = question_file.read()
     question_file.close()
 
@@ -143,21 +143,21 @@ def delete_announcement(announcement):
 
 @app.route('/announcement/<announcement>/delete/processing...', methods=["GET", "POST"])
 def processing_delete_announcement(announcement):
-    fund_file = open('/home/helpers/website/announcements/' + announcement + '/fund.txt', 'r')
+    fund_file = open('announcements/' + announcement + '/fund.txt', 'r')
     fund = fund_file.read()
     fund_file.close()
 
-    answer_file = open('/home/helpers/website/funds/' + fund + '/answer.txt', 'r')
+    answer_file = open('funds/' + fund + '/answer.txt', 'r')
     needed_answer = answer_file.read()
     answer_file.close()
 
     answer = flask.request.form['answer']
 
     if answer.lower() != needed_answer.lower():
-        name_file = open('/home/helpers/website/announcements/' + announcement + '/name.txt', 'r')
+        name_file = open('announcements/' + announcement + '/name.txt', 'r')
         name = name_file.read()
         name_file.close()
-        info_file = open('/home/helpers/website/announcements/' + announcement + '/info.txt', 'r')
+        info_file = open('announcements/' + announcement + '/info.txt', 'r')
         info = info_file.read().split('\n')
         info_file.close()
 
@@ -166,7 +166,7 @@ def processing_delete_announcement(announcement):
     announcements = []
     index = 0
     found = False
-    announcements_names = open('/home/helpers/website/announcements.txt', 'r')
+    announcements_names = open('announcements.txt', 'r')
     for line in announcements_names:
         text = line.split("|")
         announcements.append([text[0], text[1]])
@@ -179,17 +179,17 @@ def processing_delete_announcement(announcement):
 
     del announcements[index]
 
-    announcements_file = open('/home/helpers/website/announcements.txt', 'w')
+    announcements_file = open('announcements.txt', 'w')
     for a in announcements:
         announcements_file.write(a[0] + '|' + a[1] + '\n')
 
     announcements_file.close()
 
-    deleted_tasks_file = open('/home/helpers/website/deleted_tasks.txt', 'r')
+    deleted_tasks_file = open('deleted_tasks.txt', 'r')
     deleted_tasks = int(deleted_tasks_file.read())
     deleted_tasks_file.close()
 
-    deleted_tasks_file = open('/home/helpers/website/deleted_tasks.txt', 'w')
+    deleted_tasks_file = open('deleted_tasks.txt', 'w')
     deleted_tasks_file.write(str(deleted_tasks + 1))
     deleted_tasks_file.close()
 
@@ -206,7 +206,7 @@ def processing_info():
     fund = flask.request.form['fund']
     answer = flask.request.form['answer']
 
-    answer_file = open('/home/helpers/website/funds/' + fund + '/answer.txt', 'r')
+    answer_file = open('funds/' + fund + '/answer.txt', 'r')
     needed_answer = answer_file.read()
     answer_file.close()
 
@@ -215,7 +215,7 @@ def processing_info():
     if str(answer).lower() != needed_answer.lower():
         approved_funds = []
         funds = []
-        funds_file = open('/home/helpers/website/funds.txt')
+        funds_file = open('funds.txt')
 
         for line in funds_file:
             funds.append(line[:-1])
@@ -223,7 +223,7 @@ def processing_info():
         funds_file.close()
 
         for fund in funds:
-            fund_file = open('/home/helpers/website/funds/' + fund + '/approved.txt')
+            fund_file = open('funds/' + fund + '/approved.txt')
             if fund_file.read() == "yes":
                 approved_funds.append(fund)
 
@@ -232,7 +232,7 @@ def processing_info():
         questions = []
 
         for fund in approved_funds:
-            question_file = open('/home/helpers/website/funds/' + fund + '/question.txt', 'r')
+            question_file = open('funds/' + fund + '/question.txt', 'r')
             question = question_file.read()
             question_file.close()
             questions.append(question)
@@ -241,26 +241,26 @@ def processing_info():
                                      questions=questions, error="Неправильный ответ! В доступе отказано. Попробуйте еще раз. Проверьте ответ на наличие пробела в конце, если он присутствует, удалите его",
                                      name=name, info=info)
 
-    last_id_file = open('/home/helpers/website/announcements/last_id.txt', 'r')
+    last_id_file = open('announcements/last_id.txt', 'r')
     last_id = str(int(last_id_file.read()) + 1)
     last_id_file.close()
-    last_id_file = open('/home/helpers/website/announcements/last_id.txt', 'w')
+    last_id_file = open('announcements/last_id.txt', 'w')
     last_id_file.write(last_id)
     last_id_file.close()
 
-    os.mkdir('/home/helpers/website/announcements/' + last_id)
+    os.mkdir('announcements/' + last_id)
 
-    name_file = open('/home/helpers/website/announcements/' + last_id + '/name.txt', 'w')
+    name_file = open('announcements/' + last_id + '/name.txt', 'w')
     name_file.write(name)
     name_file.close()
-    info_file = open('/home/helpers/website/announcements/' + last_id + '/info.txt', 'w')
+    info_file = open('announcements/' + last_id + '/info.txt', 'w')
     info_file.write(info)
     info_file.close()
-    fund_file = open('/home/helpers/website/announcements/' + last_id + '/fund.txt', 'w')
+    fund_file = open('announcements/' + last_id + '/fund.txt', 'w')
     fund_file.write(fund)
     fund_file.close()
 
-    announcements_names = open('/home/helpers/website/announcements.txt', 'a+')
+    announcements_names = open('announcements.txt', 'a+')
     announcements_names.write(name + "|" + last_id + "\n")
     announcements_names.close()
 
@@ -277,21 +277,21 @@ def processing_fund_partnership():
     question = flask.request.form['question']
     answer = flask.request.form['answer']
 
-    os.mkdir('/home/helpers/website/funds/' + name)
-    email_file = open('/home/helpers/website/funds/' + name + '/email.txt', 'w')
+    os.mkdir('funds/' + name)
+    email_file = open('funds/' + name + '/email.txt', 'w')
     email_file.write(email)
     email_file.close()
-    question_file = open('/home/helpers/website/funds/' + name + '/question.txt', 'w')
+    question_file = open('funds/' + name + '/question.txt', 'w')
     question_file.write(question)
     question_file.close()
-    answer_file = open('/home/helpers/website/funds/' + name + '/answer.txt', 'w')
+    answer_file = open('funds/' + name + '/answer.txt', 'w')
     answer_file.write(answer)
     answer_file.close()
-    approved_file = open('/home/helpers/website/funds/' + name + '/approved.txt', 'w')
+    approved_file = open('funds/' + name + '/approved.txt', 'w')
     approved_file.write("no")
     approved_file.close()
 
-    funds = open('/home/helpers/website/funds.txt', 'a+')
+    funds = open('funds.txt', 'a+')
     funds.write(name + '\n')
     funds.close()
 
