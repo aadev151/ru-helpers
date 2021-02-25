@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Упс... | HELPERS</title>
+</head>
+<body>
+    <img class="logo404" src="{{ url_for('static', filename='logo.png') }}">
+    <h1>Упс... Кажется, Вы попали не туда, куда нужно...</h1>
+    <h2>Одной из возможных причин, почему это произошло может быть:</h2>
+    <ul class="reasons">
+        <li>Страницу уничтожили пришельцы</li>
+        <li>Наш сайт взломали хакеры и удалили страницу</li>
+        <li>Вы ввели название страницы неправильно (это случается очень редко, но проверьте - вдруг у Вас именно этот случай)</li>
+        <li>Эта страница была аттакована США</li>
+    </ul>
+    <h3>Если Вы уверены, что ошибка произошла по нашей вине, <a href="mailto:feedback@rambler.ua?subject=Неправильная 404&body=Здравствуйте! Я считаю, что ошибка 404 на странице https://helpers.pythonanywhere/... (впишите адрес страницы) неверная.">напишите</a>, пожалуйста, нам и опишите проблему. Мы постараемся исправить это как можно скорее :)</h3>
+    <form action="/" method="get">
+        <button type="submit" class="backToStart">В начало</button>
+    </form>
+</body>
+</html>
