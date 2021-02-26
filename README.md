@@ -1,5 +1,7 @@
 # HELPERS
 
+[![HELPERS Logo](https://helpers.pythonanywhere.com/static/logo.png)](https://helpers.pythonanywhere.com)
+
 HELPERS - это сообщество разработчиков и благотворительных фондов. Здесь Вы можете *бесплатно* попросить о помощи или помочь
 
 ## Веб-сайт
